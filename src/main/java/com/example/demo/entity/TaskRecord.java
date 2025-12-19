@@ -1,8 +1,16 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+import java.time.LocalDateTime;
+
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "taskCode"))
 public class TaskRecord {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String taskCode;
