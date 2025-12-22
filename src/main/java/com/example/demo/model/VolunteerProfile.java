@@ -1,22 +1,33 @@
 package com.example.demo.model;
 
-
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
 
 @Entity
+@Table(name = "volunteer_profiles")
 public class VolunteerProfile {
-@Id @GeneratedValue
-private Long id;
-@Column(unique = true)
-private String volunteerId;
-@Column(unique = true)
-private String email;
-@Column(unique = true)
-private String phone;
-private String fullName;
-private String availabilityStatus;
-private LocalDateTime createdAt = LocalDateTime.now();
-// getters/setters
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @Column(unique = true)
+    private String email;
+
+    private String availabilityStatus; // AVAILABLE / UNAVAILABLE
+
+    public VolunteerProfile() {}
+
+    public VolunteerProfile(String name, String email, String availabilityStatus) {
+        this.name = name;
+        this.email = email;
+        this.availabilityStatus = availabilityStatus;
+    }
+
+    public Long getId() { return id; }
+    public String getAvailabilityStatus() { return availabilityStatus; }
+    public void setAvailabilityStatus(String availabilityStatus) {
+        this.availabilityStatus = availabilityStatus;
+    }
 }
