@@ -1,26 +1,21 @@
 package com.example.demo.controller;
 
-
-import com.example.demo.service.TaskAssignmentService;
 import com.example.demo.model.TaskAssignmentRecord;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.example.demo.service.TaskAssignmentService;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/api/assignments")
-@Tag(name = "Task Assignments")
+@RequestMapping("/tasks")
 public class TaskAssignmentController {
-private final TaskAssignmentService service;
 
+    private final TaskAssignmentService service;
 
-public TaskAssignmentController(TaskAssignmentService service) {
-this.service = service;
-}
+    public TaskAssignmentController(TaskAssignmentService service) {
+        this.service = service;
+    }
 
-
-@PostMapping("/assign/{taskId}")
-public TaskAssignmentRecord assign(@PathVariable Long taskId) {
-return service.assignTask(taskId);
-}
+    @PostMapping("/{taskId}/assign")
+    public TaskAssignmentRecord assign(@PathVariable Long taskId) {
+        return service.assignTask(taskId);
+    }
 }
