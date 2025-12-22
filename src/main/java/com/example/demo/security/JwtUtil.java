@@ -18,3 +18,5 @@ public class JwtUtil {
                 .setSubject(email)
                 .claim("role", role)
                 .setIssuedAt(new Date())
+    }
+}
