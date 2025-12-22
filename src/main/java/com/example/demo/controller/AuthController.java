@@ -1,8 +1,13 @@
-package com.example.demo.service;
+package com.example.demo.controller;
 
-import com.example.demo.model.User;
+import org.springframework.web.bind.annotation.*;
 
-public interface UserService {
-    User findByEmail(String email);
-    User save(User user);
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    @PostMapping("/login")
+    public String login() {
+        return "Login successful";
+    }
 }
