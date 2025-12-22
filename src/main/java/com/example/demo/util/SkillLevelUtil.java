@@ -1,9 +1,9 @@
 package com.example.demo.util;
 
 public class SkillLevelUtil {
+
     public static int levelRank(String level) {
-        if (level == null) return 0;
-        return switch (level.toUpperCase()) {
+        return switch (level) {
             case "BEGINNER" -> 1;
             case "INTERMEDIATE" -> 2;
             case "EXPERT" -> 3;
@@ -12,8 +12,7 @@ public class SkillLevelUtil {
     }
 
     public static int priorityRank(String priority) {
-        if (priority == null) return 0;
-        return switch (priority.toUpperCase()) {
+        return switch (priority) {
             case "LOW" -> 1;
             case "MEDIUM" -> 2;
             case "HIGH" -> 3;

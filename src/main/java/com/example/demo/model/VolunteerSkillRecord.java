@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "volunteer_skill_records")
 public class VolunteerSkillRecord {
 
     @Id
@@ -12,16 +12,13 @@ public class VolunteerSkillRecord {
 
     private Long volunteerId;
     private String skillName;
-    private String skillLevel; // BEGINNER / INTERMEDIATE / EXPERT
+    private String skillLevel;
+    private Boolean certified;
 
-    public VolunteerSkillRecord() {}
+    private LocalDateTime updatedAt;
 
-    public VolunteerSkillRecord(Long volunteerId, String skillName, String skillLevel) {
-        this.volunteerId = volunteerId;
-        this.skillName = skillName;
-        this.skillLevel = skillLevel;
+    @PrePersist
+    public void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
-
-    public String getSkillName() { return skillName; }
-    public String getSkillLevel() { return skillLevel; }
 }

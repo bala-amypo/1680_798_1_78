@@ -1,25 +1,23 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_records")
 public class TaskRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    @Column(unique = true)
+    private String taskCode;
+
+    private String taskName;
     private String requiredSkill;
     private String requiredSkillLevel;
-    private String status; // OPEN / ACTIVE
+    private String priority;
+    private String status = "OPEN";
 
-    public TaskRecord() {}
-
-    public Long getId() { return id; }
-    public String getRequiredSkill() { return requiredSkill; }
-    public String getRequiredSkillLevel() { return requiredSkillLevel; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
