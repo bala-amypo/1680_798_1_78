@@ -1,8 +1,3 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
 @Entity
 public class TaskAssignmentRecord {
 
@@ -11,10 +6,14 @@ public class TaskAssignmentRecord {
     private Long id;
 
     private Long taskId;
-    private Long volunteerId;
+    private String volunteerld;
+    private String status;
 
-    private LocalDateTime assignedAt = LocalDateTime.now();
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
 
-    private String status = "ACTIVE";
-    private String notes;
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

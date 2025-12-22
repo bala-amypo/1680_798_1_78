@@ -1,8 +1,3 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
 @Entity
 public class VolunteerSkillRecord {
 
@@ -10,15 +5,10 @@ public class VolunteerSkillRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long volunteerId;
+    private String volunteerld;
     private String skillName;
-    private String skillLevel;
-    private Boolean certified;
+    private int skillLevel;
 
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    public void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+    public String getSkillName() { return skillName; }
+    public int getSkillLevel() { return skillLevel; }
 }
