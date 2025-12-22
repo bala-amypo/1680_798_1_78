@@ -10,10 +10,9 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "MySecretKey12345"; // Use environment variable in production
-    private final long EXPIRATION = 1000 * 60 * 60 * 10; // 10 hours
+    private final String SECRET_KEY = "MySecretKey12345";
+    private final long EXPIRATION = 1000 * 60 * 60 * 10;
 
-    // Generate JWT token
     public String generateToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
@@ -24,31 +23,23 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract email from token
     public String extractEmail(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    // Extract role from token
     public String extractRole(String token) {
         return (String) extractAllClaims(token).get("role");
     }
 
-    // Check if token expired
     public boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
 
-    // Validate token
     public boolean validateToken(String token, String email) {
         return extractEmail(token).equals(email) && !isTokenExpired(token);
     }
 
-    // Extract claims
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 }
