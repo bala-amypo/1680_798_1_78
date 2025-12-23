@@ -2,6 +2,8 @@ package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,11 +11,20 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI openAPI() {
+
+        SecurityScheme securityScheme = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
+
         return new OpenAPI()
                 .info(new Info()
-                        .title("Volunteer Task Assignment API")
+                        .title("Skill-Based Volunteer Task Assignor API")
                         .version("1.0")
-                        .description("API for managing volunteers, tasks, and auto-assignment"));
+                        .description("API documentation for Volunteer Task Assignment System")
+                )
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .schemaRequirement("bearerAuth", securityScheme);
     }
 }
