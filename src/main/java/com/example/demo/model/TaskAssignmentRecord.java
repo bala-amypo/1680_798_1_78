@@ -1,43 +1,66 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_assignments")
+@Table(name = "task_assignment_records")
 public class TaskAssignmentRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String taskId;
-    private String volunteerId;
-    private String status; // ACTIVE, COMPLETED
+    @ManyToOne
+    @JoinColumn(name = "task_id", nullable = false)
+    private TaskRecord task;
+
+    @ManyToOne
+    @JoinColumn(name = "volunteer_id", nullable = false)
+    private VolunteerProfile volunteer;
+
+    private LocalDateTime assignedAt;
+
+    private String status; // ASSIGNED / IN_PROGRESS / COMPLETED / CANCELLED
+
+    public TaskAssignmentRecord() {
+        this.assignedAt = LocalDateTime.now();
+    }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
     }
 
-    public String getTaskId() {
-        return taskId;
+    public TaskRecord getTask() {
+        return task;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getVolunteerId() {
-        return volunteerId;
+    public void setTask(TaskRecord task) {
+        this.task = task;
     }
 
-    public void setVolunteerId(String volunteerId) {
-        this.volunteerId = volunteerId;
+    public VolunteerProfile getVolunteer() {
+        return volunteer;
+    }
+    
+    public void setVolunteer(VolunteerProfile volunteer) {
+        this.volunteer = volunteer;
+    }
+
+    public LocalDateTime getAssignedAt() {
+        return assignedAt;
     }
 
     public String getStatus() {
         return status;
     }
-
+    
     public void setStatus(String status) {
         this.status = status;
     }

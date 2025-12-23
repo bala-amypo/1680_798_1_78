@@ -4,13 +4,13 @@ import com.example.demo.model.VolunteerProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface VolunteerProfileRepository
-        extends JpaRepository<VolunteerProfile, Long> {
-
-    List<VolunteerProfile> findByAvailabilityStatus(String status);
+public interface VolunteerProfileRepository extends JpaRepository<VolunteerProfile, Long> {
 
     boolean existsByEmail(String email);
-    boolean existsByVolunteerId(String volunteerId);
-    boolean existsByPhone(String phone);
+
+    Optional<VolunteerProfile> findByEmail(String email);
+
+    List<VolunteerProfile> findByAvailabilityStatus(String availabilityStatus);
 }
