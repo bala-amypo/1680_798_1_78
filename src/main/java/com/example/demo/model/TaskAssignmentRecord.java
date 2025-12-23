@@ -1,43 +1,36 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "task_assignment_records")
+@Table(name = "task_assignments")
 public class TaskAssignmentRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long taskId;
-
-    private Long volunteerId;
-
-    private String status; // ACTIVE / COMPLETED / CANCELLED
-
-    private LocalDateTime assignedAt = LocalDateTime.now();
-
-    // ===== Getters & Setters =====
+    private String taskId;
+    private String volunteerId;
+    private String status; // ACTIVE, COMPLETED
 
     public Long getId() {
         return id;
     }
 
-    public Long getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Long taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 
-    public Long getVolunteerId() {
+    public String getVolunteerId() {
         return volunteerId;
     }
 
-    public void setVolunteerId(Long volunteerId) {
+    public void setVolunteerId(String volunteerId) {
         this.volunteerId = volunteerId;
     }
 
@@ -47,9 +40,5 @@ public class TaskAssignmentRecord {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public LocalDateTime getAssignedAt() {
-        return assignedAt;
     }
 }
