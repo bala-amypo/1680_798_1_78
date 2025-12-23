@@ -1,0 +1,18 @@
+package com.example.demo.service;
+
+import com.example.demo.dto.AssignmentStatusUpdateRequest;
+import com.example.demo.model.TaskAssignmentRecord;
+
+import java.util.List;
+
+public interface TaskAssignmentService {
+
+    TaskAssignmentRecord assignVolunteerToTask(Long volunteerId, Long taskId);
+
+    TaskAssignmentRecord updateAssignmentStatus(Long assignmentId,
+                                                AssignmentStatusUpdateRequest request);
+
+    List<TaskAssignmentRecord> getAssignmentsForVolunteer(Long volunteerId);
+
+    List<TaskAssignmentRecord> getAssignmentsForTask(Long taskId);
+}
