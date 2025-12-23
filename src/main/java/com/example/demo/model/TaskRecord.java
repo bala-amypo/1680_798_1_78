@@ -3,19 +3,28 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
+@Table(name = "task_records")
+public class TaskRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String taskCode;
     private String requiredSkill;
     private int requiredLevel;
-    private String status; // OPEN, ASSIGNED
+    private String status; // OPEN, ASSIGNED, COMPLETED
 
     public Long getId() {
         return id;
+    }
+
+    public String getTaskCode() {
+        return taskCode;
+    }
+
+    public void setTaskCode(String taskCode) {
+        this.taskCode = taskCode;
     }
 
     public String getRequiredSkill() {
