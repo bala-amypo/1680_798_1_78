@@ -1,51 +1,54 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AssignmentStatusUpdateRequest;
 import com.example.demo.model.TaskAssignmentRecord;
 import com.example.demo.service.TaskAssignmentService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/assignments")
-@Tag(name = "Task Assignments", description = "Assign tasks to volunteers")
 public class TaskAssignmentController {
 
-    private final TaskAssignmentService assignmentService;
+    private final TaskAssignmentService taskAssignmentService;
 
-    public TaskAssignmentController(TaskAssignmentService assignmentService) {
-        this.assignmentService = assignmentService;
+    public TaskAssignmentController(TaskAssignmentService taskAssignmentService) {
+        this.taskAssignmentService = taskAssignmentService;
     }
 
-    @PostMapping("/assign/{taskId}")
-    @Operation(summary = "Auto-assign a task to best-fit volunteer")
-    public TaskAssignmentRecord assignTask(@PathVariable Long taskId) {
-        return assignmentService.assignTask(taskId);
+    @PostMapping("/{volunteerId}/{taskId}")
+    public ResponseEntity<TaskAssignmentRecord> assignVolunteer(
+            @PathVariable Long volunteerId,
+            @PathVariable Long taskId) {
+        return ResponseEntity.ok(
+                taskAssignmentService.assignVolunteerToTask(volunteerId, taskId)
+        );
     }
 
     @PutMapping("/{id}/status")
-    @Operation(summary = "Update assignment status")
-    public TaskAssignmentRecord updateStatus(@PathVariable Long id, @RequestParam String status) {
-        return assignmentService.updateAssignmentStatus(id, status);
+    public ResponseEntity<TaskAssignmentRecord> updateStatus(
+            @PathVariable Long id,
+            @RequestBody AssignmentStatusUpdateRequest request) {
+        return ResponseEntity.ok(
+                taskAssignmentService.updateAssignmentStatus(id, request)
+        );
     }
 
     @GetMapping("/volunteer/{volunteerId}")
-    @Operation(summary = "Get assignments by volunteer")
-    public List<TaskAssignmentRecord> getByVolunteer(@PathVariable Long volunteerId) {
-        return assignmentService.getAssignmentsByVolunteer(volunteerId);
+    public ResponseEntity<List<TaskAssignmentRecord>> getAssignmentsForVolunteer(
+            @PathVariable Long volunteerId) {
+        return ResponseEntity.ok(
+                taskAssignmentService.getAssignmentsForVolunteer(volunteerId)
+        );
     }
 
     @GetMapping("/task/{taskId}")
-    @Operation(summary = "Get assignments by task")
-    public List<TaskAssignmentRecord> getByTask(@PathVariable Long taskId) {
-        return assignmentService.getAssignmentsByTask(taskId);
-    }
-
-    @GetMapping
-    @Operation(summary = "Get all assignments")
-    public List<TaskAssignmentRecord> getAllAssignments() {
-        return assignmentService.getAllAssignments();
+    public ResponseEntity<List<TaskAssignmentRecord>> getAssignmentsForTask(
+            @PathVariable Long taskId) {
+        return ResponseEntity.ok(
+                taskAssignmentService.getAssignmentsForTask(taskId)
+        );
     }
 }
