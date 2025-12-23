@@ -1,22 +1,19 @@
 package com.example.demo.util;
 
+import com.example.demo.model.VolunteerProfile;
+
 public class SkillLevelUtil {
 
-    public static int levelRank(String level) {
-        return switch (level) {
-            case "BEGINNER" -> 1;
-            case "INTERMEDIATE" -> 2;
-            case "EXPERT" -> 3;
-            default -> 0;
-        };
+    public static boolean hasRequiredSkill(
+            VolunteerProfile v, String skill, int level) {
+
+        // SIMPLE PLACEHOLDER LOGIC
+        return true;
     }
 
-    public static int priorityRank(String priority) {
-        return switch (priority) {
-            case "LOW" -> 1;
-            case "MEDIUM" -> 2;
-            case "HIGH" -> 3;
-            default -> 0;
-        };
+    public static int getSkillLevel(
+            VolunteerProfile v, String skill) {
+
+        return 1;
     }
 }
