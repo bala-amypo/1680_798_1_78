@@ -13,8 +13,6 @@ public class AuthRequest {
         this.password = password;
     }
 
-    // Getters and Setters
-
     public String getEmail() {
         return email;
     }
@@ -26,7 +24,7 @@ public class AuthRequest {
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
