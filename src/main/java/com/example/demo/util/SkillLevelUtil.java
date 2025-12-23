@@ -1,22 +1,27 @@
 package com.example.demo.util;
 
-public class SkillLevelUtil {
+public final class SkillLevelUtil {
 
-    public static int levelRank(String level) {
-        return switch (level) {
-            case "BEGINNER" -> 1;
-            case "INTERMEDIATE" -> 2;
-            case "EXPERT" -> 3;
-            default -> 0;
-        };
+    private SkillLevelUtil() {
+        // utility class – prevent instantiation
     }
 
-    public static int priorityRank(String priority) {
-        return switch (priority) {
-            case "LOW" -> 1;
-            case "MEDIUM" -> 2;
-            case "HIGH" -> 3;
-            default -> 0;
-        };
+    /**
+     * Checks whether a volunteer's skill level meets or exceeds
+     * the required level for a task.
+     *
+     * @param volunteerLevel volunteer's skill level
+     * @param requiredLevel task's required skill level
+     * @return true if volunteerLevel >= requiredLevel
+     */
+    public static boolean meetsRequiredLevel(
+            Integer volunteerLevel,
+            Integer requiredLevel) {
+
+        if (volunteerLevel == null || requiredLevel == null) {
+            return false;
+        }
+
+        return volunteerLevel >= requiredLevel;
     }
 }
