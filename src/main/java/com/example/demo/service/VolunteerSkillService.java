@@ -1,33 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.VolunteerSkillRecord;
-
+import com.example.demo.model.VolunteerSkill;
 import java.util.List;
 
 public interface VolunteerSkillService {
-
-    VolunteerSkillRecord addOrUpdateSkill(VolunteerSkillRecord record);
-
-    List<VolunteerSkillRecord> getSkillsByVolunteer(Long volunteerId);
+    VolunteerSkill addSkill(VolunteerSkill skill);
+    VolunteerSkill updateSkill(VolunteerSkill skill);
+    VolunteerSkill getSkillById(Long id);
+    List<VolunteerSkill> getAllSkills();
+    void deleteSkill(Long id);
 }
-
-
-
-
-
-
-
-
-
-
-
-// package com.example.demo.service;
-
-// import com.example.demo.model.VolunteerSkillRecord;
-
-// import java.util.List;
-
-// public interface VolunteerSkillService {
-
-//     List<VolunteerSkillRecord> getSkillsByVolunteer(Long volunteerId);
-// }
