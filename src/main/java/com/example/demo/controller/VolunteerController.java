@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/volunteers")
+@RequestMapping("/api/volunteers")
 public class VolunteerController {
 
     private final VolunteerRepository repository;
@@ -17,12 +17,31 @@ public class VolunteerController {
     }
 
     @PostMapping
-    public Volunteer save(@RequestBody Volunteer volunteer) {
+    public Volunteer create(@RequestBody Volunteer volunteer) {
         return repository.save(volunteer);
     }
 
     @GetMapping
     public List<Volunteer> getAll() {
         return repository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Volunteer getById(@PathVariable Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    @PutMapping("/{id}")
+    public Volunteer update(@PathVariable Long id, @RequestBody Volunteer volunteer) {
+        Volunteer existing = repository.findById(id).orElseThrow();
+        existing.setName(volunteer.getName());
+        existing.setEmail(volunteer.getEmail());
+        existing.setPhone(volunteer.getPhone());
+        return repository.save(existing);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 }

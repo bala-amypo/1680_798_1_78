@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "volunteers")
 public class Volunteer {
 
     @Id
@@ -10,14 +11,19 @@ public class Volunteer {
     private Long id;
 
     private String name;
-    private String skill;
+    private String email;
+    private String phone;
+
+    public Volunteer() {}
+
+    public Volunteer(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -28,11 +34,19 @@ public class Volunteer {
         this.name = name;
     }
 
-    public String getSkill() {
-        return skill;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSkill(String skill) {
-        this.skill = skill;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
