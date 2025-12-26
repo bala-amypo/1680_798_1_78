@@ -1,17 +1,17 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
 @Entity
 public class Volunteer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
-    private String phone;
 
-    // Getters and Setters
+    private String name;
+    private String skill;
+
     public Long getId() {
         return id;
     }
@@ -28,19 +28,11 @@ public class Volunteer {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSkill() {
+        return skill;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 }
