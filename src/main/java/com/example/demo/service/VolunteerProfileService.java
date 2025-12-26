@@ -7,9 +7,11 @@ public interface VolunteerProfileService {
 
     Volunteer createVolunteer(Volunteer volunteer);
 
-    Volunteer updateVolunteerAvailability(Long volunteerId, boolean available);
+    Volunteer updateVolunteer(Volunteer volunteer);
 
     Volunteer getVolunteerById(Long id);
 
     List<Volunteer> getAllVolunteers();
+
+    void deleteVolunteer(Long id);
 }
