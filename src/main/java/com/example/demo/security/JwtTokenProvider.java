@@ -1,49 +1,64 @@
 package com.example.demo.security;
 
-import java.util.Date;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.Authentication;
 
-/**
- * Lightweight JWT utility class.
- * No real JWT dependency to avoid test failures.
- */
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class JwtTokenProvider {
 
-    /**
-     * Generates a dummy token.
-     */
-    public String generateToken(String username) {
-        return "DUMMY_JWT_TOKEN_FOR_" + username;
+    private final Key key;
+    private final long expirationInMs;
+
+    public JwtTokenProvider(String secretKey, long expirationInMs) {
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        this.expirationInMs = expirationInMs;
     }
 
-    /**
-     * Extracts username from token.
-     */
+    public String generateToken(Authentication authentication, Long userId, String role) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + expirationInMs);
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);
+        claims.put("role", role);
+        claims.put("email", authentication.getName());
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(authentication.getName())
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     public String getUsernameFromToken(String token) {
-        if (token == null) {
-            return null;
-        }
-        return token.replace("DUMMY_JWT_TOKEN_FOR_", "");
+        return parseClaims(token).getSubject();
     }
 
-    /**
-     * Validates token.
-     * Always returns true to keep tests simple.
-     */
+    public Map<String, Object> getAllClaims(String token) {
+        return parseClaims(token);
+    }
+
     public boolean validateToken(String token) {
-        return token != null && token.startsWith("DUMMY_JWT_TOKEN_FOR_");
+        try {
+            parseClaims(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException ex) {
+            return false;
+        }
     }
 
-    /**
-     * Token expiration check (stub).
-     */
-    public boolean isTokenExpired(String token) {
-        return false;
-    }
-
-    /**
-     * Returns dummy expiry date.
-     */
-    public Date getExpiryDate(String token) {
-        return new Date(System.currentTimeMillis() + 3600000);
+    private Claims parseClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
