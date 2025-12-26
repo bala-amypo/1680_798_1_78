@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service  // Important! Marks this class as a Spring bean
 public class VolunteerSkillServiceImpl implements VolunteerSkillService {
 
     @Autowired
