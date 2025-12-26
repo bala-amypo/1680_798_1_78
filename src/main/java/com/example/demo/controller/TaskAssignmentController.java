@@ -1,54 +1,38 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AssignmentStatusUpdateRequest;
 import com.example.demo.model.TaskAssignmentRecord;
 import com.example.demo.service.TaskAssignmentService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/assignments")
+@RequestMapping("/assignments")
 public class TaskAssignmentController {
 
-    private final TaskAssignmentService taskAssignmentService;
+    private final TaskAssignmentService service;
 
-    public TaskAssignmentController(TaskAssignmentService taskAssignmentService) {
-        this.taskAssignmentService = taskAssignmentService;
+    public TaskAssignmentController(TaskAssignmentService service) {
+        this.service = service;
     }
 
-    @PostMapping("/{volunteerId}/{taskId}")
-    public ResponseEntity<TaskAssignmentRecord> assignVolunteer(
-            @PathVariable Long volunteerId,
-            @PathVariable Long taskId) {
-        return ResponseEntity.ok(
-                taskAssignmentService.assignVolunteerToTask(volunteerId, taskId)
-        );
+    @PostMapping("/{taskId}")
+    public TaskAssignmentRecord assignTask(@PathVariable Long taskId) {
+        return service.assignTask(taskId);
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<TaskAssignmentRecord> updateStatus(
-            @PathVariable Long id,
-            @RequestBody AssignmentStatusUpdateRequest request) {
-        return ResponseEntity.ok(
-                taskAssignmentService.updateAssignmentStatus(id, request)
-        );
-    }
-
-    @GetMapping("/volunteer/{volunteerId}")
-    public ResponseEntity<List<TaskAssignmentRecord>> getAssignmentsForVolunteer(
-            @PathVariable Long volunteerId) {
-        return ResponseEntity.ok(
-                taskAssignmentService.getAssignmentsForVolunteer(volunteerId)
-        );
+    @GetMapping
+    public List<TaskAssignmentRecord> getAll() {
+        return service.getAllAssignments();
     }
 
     @GetMapping("/task/{taskId}")
-    public ResponseEntity<List<TaskAssignmentRecord>> getAssignmentsForTask(
-            @PathVariable Long taskId) {
-        return ResponseEntity.ok(
-                taskAssignmentService.getAssignmentsForTask(taskId)
-        );
+    public List<TaskAssignmentRecord> getByTask(@PathVariable Long taskId) {
+        return service.getAssignmentsByTask(taskId);
+    }
+
+    @GetMapping("/volunteer/{volunteerId}")
+    public List<TaskAssignmentRecord> getByVolunteer(@PathVariable Long volunteerId) {
+        return service.getAssignmentsByVolunteer(volunteerId);
     }
 }
