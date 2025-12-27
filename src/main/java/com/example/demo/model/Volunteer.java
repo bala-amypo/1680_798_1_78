@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 
@@ -12,41 +12,20 @@ public class Volunteer {
 
     private String name;
     private String email;
-    private String phone;
 
     public Volunteer() {}
 
-    public Volunteer(String name, String email, String phone) {
+    public Volunteer(String name, String email) {
         this.name = name;
         this.email = email;
-        this.phone = phone;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 }
