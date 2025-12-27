@@ -1,4 +1,4 @@
-// AssignmentEvaluationController.java
+
 package com.example.demo.controller;
 
 import com.example.demo.model.AssignmentEvaluationRecord;
@@ -8,17 +8,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/assignments")
+@RequestMapping("/evaluations")
 public class AssignmentEvaluationController {
 
-    private final AssignmentEvaluationService assignmentEvaluationService;
+    private final AssignmentEvaluationService service;
 
-    public AssignmentEvaluationController(AssignmentEvaluationService assignmentEvaluationService) {
-        this.assignmentEvaluationService = assignmentEvaluationService;
+    public AssignmentEvaluationController(AssignmentEvaluationService service) {
+        this.service = service;
     }
 
-    @GetMapping("/evaluate/{id}")
-    public List<AssignmentEvaluationRecord> evaluate(@PathVariable Long id) {
-        return assignmentEvaluationService.getEvaluationsByAssignment(id);
+    @PostMapping
+    public AssignmentEvaluationRecord evaluate(
+            @RequestBody AssignmentEvaluationRecord evaluation) {
+
+        return service.evaluateAssignment(evaluation);
+    }
+
+    @GetMapping
+    public List<AssignmentEvaluationRecord> all() {
+        return service.getAllEvaluations();
     }
 }
