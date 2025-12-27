@@ -1,15 +1,19 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Task;
+import com.example.demo.model.TaskRecord;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskRecordService {
 
-    Task createTask(Task task);
+    TaskRecord createTask(TaskRecord task);
 
-    List<Task> getAllTasks();
+    TaskRecord updateTask(Long id, TaskRecord updated);
 
-    Task getTaskById(Long id);
+    List<TaskRecord> getOpenTasks();
 
-    void deleteTask(Long id);
+    Optional<TaskRecord> getTaskByCode(String code);
+
+    List<TaskRecord> getAllTasks();
 }
