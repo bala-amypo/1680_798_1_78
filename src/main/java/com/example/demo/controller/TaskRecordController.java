@@ -1,36 +1,41 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import com.example.demo.model.Task;
+import com.example.demo.model.TaskRecord;
 import com.example.demo.service.TaskRecordService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/taskRecords")
+@RequestMapping("/tasks")
 public class TaskRecordController {
 
-    @Autowired
-    private TaskRecordService taskRecordService;
+    private final TaskRecordService service;
 
-    @PostMapping("/create")
-    public Task createTask(@RequestBody Task task) {
-        return taskRecordService.createTask(task);
+    public TaskRecordController(TaskRecordService service) {
+        this.service = service;
     }
 
-    @GetMapping("/all")
-    public List<Task> getAllTasks() {
-        return taskRecordService.getAllTasks();
+    @PostMapping
+    public TaskRecord create(@RequestBody TaskRecord task) {
+        return service.createTask(task);
     }
 
-    @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id) {
-        return taskRecordService.getTaskById(id);
+    @PutMapping("/{id}")
+    public TaskRecord update(
+            @PathVariable Long id,
+            @RequestBody TaskRecord task) {
+
+        return service.updateTask(id, task);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteTask(@PathVariable Long id) {
-        taskRecordService.deleteTask(id);
+    @GetMapping
+    public List<TaskRecord> all() {
+        return service.getAllTasks();
+    }
+
+    @GetMapping("/open")
+    public List<TaskRecord> openTasks() {
+        return service.getOpenTasks();
     }
 }

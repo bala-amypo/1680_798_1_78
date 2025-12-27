@@ -1,49 +1,41 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Volunteer;
+import com.example.demo.model.VolunteerProfile;
 import com.example.demo.service.VolunteerProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/volunteers")
+@RequestMapping("/volunteers")
 public class VolunteerProfileController {
 
-    @Autowired
-    private VolunteerProfileService volunteerService;
+    private final VolunteerProfileService service;
 
-    @PostMapping
-    public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
-        Volunteer created = volunteerService.createVolunteer(volunteer);
-        return ResponseEntity.ok(created);
+    public VolunteerProfileController(VolunteerProfileService service) {
+        this.service = service;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Volunteer> updateVolunteer(@PathVariable Long id, @RequestBody Volunteer volunteer) {
-        volunteer.setId(id);
-        Volunteer updated = volunteerService.updateVolunteer(volunteer);
-        return ResponseEntity.ok(updated);
+    @PostMapping
+    public VolunteerProfile create(@RequestBody VolunteerProfile profile) {
+        return service.createVolunteer(profile);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Volunteer> getVolunteerById(@PathVariable Long id) {
-        Volunteer volunteer = volunteerService.getVolunteerById(id);
-        if (volunteer == null) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(volunteer);
+    public VolunteerProfile get(@PathVariable Long id) {
+        return service.getVolunteerById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<Volunteer>> getAllVolunteers() {
-        List<Volunteer> volunteers = volunteerService.getAllVolunteers();
-        return ResponseEntity.ok(volunteers);
+    public List<VolunteerProfile> all() {
+        return service.getAllVolunteers();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVolunteer(@PathVariable Long id) {
-        volunteerService.deleteVolunteer(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}/availability")
+    public VolunteerProfile updateAvailability(
+            @PathVariable Long id,
+            @RequestParam String status) {
+
+        return service.updateAvailability(id, status);
     }
 }
