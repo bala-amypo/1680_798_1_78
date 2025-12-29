@@ -12,12 +12,10 @@ public class TaskRecord {
     private String priority;
     private String status;
 
-    // ✅ DEFAULT CONSTRUCTOR (IMPORTANT FOR TEST)
-    public TaskRecord() {
-        this.status = "OPEN";
-    }
+   public TaskRecord() {
+    this.status = "OPEN";
+}
 
-    // ✅ GETTERS & SETTERS (REQUIRED BY SERVICES)
 
     public Long getId() {
         return id;
