@@ -7,9 +7,10 @@ public class AssignmentRecord {
     private Long volunteerId;
     private String status;
 
-    public AssignmentRecord() {
-        this.status = "ACTIVE"; // REQUIRED BY TEST
-    }
+  public AssignmentRecord() {
+    this.status = "ACTIVE";
+}
+
 
     public String getStatus() {
         return status;

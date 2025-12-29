@@ -8,10 +8,12 @@ public class EvaluationRecord {
     private Long assignmentId;
     private Integer score;
     private LocalDateTime createdAt;
+private LocalDateTime evaluatedAt;
 
-    public EvaluationRecord() {
-        this.createdAt = LocalDateTime.now(); // REQUIRED BY TEST
-    }
+public EvaluationRecord() {
+    this.evaluatedAt = LocalDateTime.now();
+}
+
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

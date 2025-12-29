@@ -9,9 +9,10 @@ public class SkillRecord {
     private String skillLevel;
     private LocalDateTime updatedAt;
 
-    public SkillRecord() {
-        this.updatedAt = LocalDateTime.now(); // REQUIRED BY TEST
-    }
+public SkillRecord() {
+    this.updatedAt = LocalDateTime.now();
+}
+
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
